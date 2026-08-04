@@ -2,19 +2,25 @@ pipeline {
     agent none
     stages {
         stage('Clone') {
-            agent any
+            agent {
+                label 'maven'
+            }
             steps {
                 echo 'Cloning'
             }
         } 
         stage('Scanning') {
-            agent any
+            agent {
+                label 'java'
+            }
             steps {
                 echo 'Scanning the code'
             }
         }  
         stage('Build') {
-            agent any
+            agent {
+                label 'maven'
+            }
             steps {
                 echo 'Building the code'
             }
