@@ -1,0 +1,13 @@
+pipeline {
+    agent any
+    stages {
+        stage('Build') {
+            steps {
+                echo 'Running on any available agent'
+                sh 'ls -lart'
+                sh 'pwd'
+            }
+        }  
+        
+    }
+}
