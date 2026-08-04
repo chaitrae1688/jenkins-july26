@@ -1,13 +1,25 @@
 pipeline {
     agent any
     stages {
-        stage('Build') {
+        stage('Clone') {
             steps {
-                echo 'Running on any available agent'
-                sh 'ls -lart'
-                sh 'pwd'
+                echo 'Cloning'
+            }
+        } 
+        stage('Scanning') {
+            steps {
+                echo 'Scanning the code'
             }
         }  
-        
+        stage('Build') {
+            steps {
+                echo 'Building the code'
+            }
+        } 
+        stage('Deploy') {
+            steps {
+                echo 'Deploying the code'
+            }
+        } 
     }
 }
