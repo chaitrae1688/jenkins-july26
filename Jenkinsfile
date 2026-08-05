@@ -14,7 +14,7 @@ pipeline {
                 label 'java'
             }
             steps {
-                echo 'Scanning the code'
+                echo 'Scanning the code Test'
             }
         }  
         stage('Build') {
