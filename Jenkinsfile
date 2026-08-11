@@ -17,6 +17,12 @@ pipeline {
                 buildDocker('my-webapp', 'v1.0.0')
             }
         }
+
+         stage('Build Java App') {
+            steps {
+                buildMaven()
+            }
+        }
     }
     
     post {
