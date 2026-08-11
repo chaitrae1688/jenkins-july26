@@ -11,6 +11,12 @@ pipeline {
             }
         }
         
+        stage('checkout') {
+            steps {
+                gitCheckout('main', 'https://github.com/chaitrae1688/jenkins-july26.git')
+            }
+        }
+        
         stage('Build Image') {
             steps {
                 // Calling the custom step from vars/buildDocker.groovy
