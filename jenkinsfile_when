@@ -1,0 +1,75 @@
+pipeline {
+    agent any
+    parameters {
+        booleanParam(name: 'deploy', defaultValue: 'true', description: 'Do you want to deploy')
+        choice(name: 'env', choices: ['uat', 'prod'], description: 'Select which env you want to deploy')
+    }
+    stages {
+        stage('Deploy to UAT') {
+            when {
+                allOf {
+                    expression { params.deploy == true}
+                    expression { params.env == 'uat' }
+                }
+            }
+            steps {
+                cleanWs()
+                echo "Deploying to UAT"
+                sh """
+                echo "helloWorld" > a
+                echo "helloWorld" > b
+                echo "helloWorld" > c
+                echo "helloWorld" > d
+                """
+                sh "ls -lart && pwd"
+                echo 'uat options'
+            }
+        }
+        stage('Deploy to PROD') {
+            when {
+                allOf {
+                    expression { params.deploy == true }
+                    expression { params.env == 'prod' }
+                }
+            }
+            steps {
+                echo "Deploying to Production"
+                sh 'ls -lart'
+                sh 'pwd'
+                print BUILD_URL
+                echo 'prod options'
+            }
+        }
+        stage('Do not deploy') {
+            when {
+                anyOf {
+                    expression { params.deploy == false }
+                }
+            }
+            steps {
+                echo "Don't deploy to any Environment"
+            }
+        }
+    }
+}
+
+
+
+pipeline {
+    agent any
+
+    stages {
+
+        stage('Deploy') {
+            when {
+                expression {
+                    currentBuild.result == null || currentBuild.result == 'SUCCESS'
+                }
+            }
+            steps {
+                sh 'ls -ltr abcd'
+                echo "Deploying application..."
+            }
+        }
+    }
+}

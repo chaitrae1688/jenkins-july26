@@ -1,9 +1,15 @@
 pipeline {
-    agent none
+    agent {
+        docker {
+            image 'java-jdk17'
+        }
+    }
     stages {
         stage('Clone') {
             agent {
-                label 'maven'
+                docker {
+                    image 'java-jdk17'
+                }
             }
             steps {
                 echo 'Cloning'
@@ -14,7 +20,7 @@ pipeline {
                 label 'java'
             }
             steps {
-                echo 'Scanning the code'
+                echo '${env.BUILD_NUMBER}'
             }
         }  
         stage('Build') {

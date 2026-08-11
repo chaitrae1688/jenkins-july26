@@ -1,0 +1,73 @@
+pipeline {
+    agent any
+    options {
+        timestamps()
+    }
+    stages {    
+        stage('Parallel Execution') {
+            parallel {
+                stage('First Build') {
+                    steps {
+                        echo "First Build Running F1"
+                        sleep 10
+                        echo "First Build Running F2"
+                        sleep 2
+                        echo "First Build Running F3"
+                        sleep 30
+                    }
+                }
+                stage('second Scanning') {
+                    steps {
+                        echo "Second Build Running S1"
+                        sleep 5
+                        echo "Second Build Running S2"
+                        sleep 2
+                        echo "Second Build Running S3"
+                        sleep 60
+                    }
+                }
+            }
+        }
+        stage('After Parallel') {
+            steps {
+                echo "Outside Parallel Scope"
+            }
+        }
+    }
+}
+
+
+
+
+
+
+pipeline {
+    agent any
+    stages {
+        stage('trying_with_try_catch') {
+            steps {
+                script {
+                    sh 'mkdir -p try_catch1'
+                    dir('try_catch1') {
+                        try {
+                            sh '''
+                                echo "working directory ${pwd}"
+                                echo 'Hello World...!!' > a
+                                cat a
+                                pwd
+                            '''
+                        } catch (Exception e) {
+                            echo "Error: Folder name may be exists or something else may happened please go through the errors: ${e.message}"
+                        }
+                    }
+                }
+                echo "Back to working directory ${pwd}"
+            }
+        }
+    }
+}   
+
+
+ 
+
+curl http://13.235.83.227:8080/job/Project A/build?token=chaitra1688
