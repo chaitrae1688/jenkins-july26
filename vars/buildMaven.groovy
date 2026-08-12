@@ -1,5 +1,5 @@
 // vars/buildMaven.groovy
-def call(String golas, boolean skipTests) {
+def call(String goals, boolean skipTests) {
     echo "Starting maven building process........"
 
     String mvnCommand = "mvn ${goals}"
